@@ -1,0 +1,4 @@
+[Project]
+Name=Testy jezykowe
+Manager=KDevCMakeManager
+VersionControl=kdevgit
