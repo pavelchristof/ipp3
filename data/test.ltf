@@ -1,0 +1,15 @@
+<task> &amp;
+	To jest <gap img="a.&quot;png">zdanie</gap>.
+	<extra> &lt;
+		<gap>fałszywa opcja</gap>
+		<gap>blabla</gap>
+	</extra>
+</task>
+
+<task>
+	To jest <gap>druga luka</gap>, blablabla <gap>lol</gap>.
+	<extra>
+		<gap>lol</gap>
+		<gap>dupa</gap>
+	</extra>
+</task>
