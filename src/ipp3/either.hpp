@@ -193,6 +193,6 @@ private:
 	};
 };
 
-}
+} // namespace ipp3
 
 #endif // IPP3_EITHER_HPP

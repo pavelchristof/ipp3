@@ -5,11 +5,26 @@
 #include "data/tokenizer.hpp"
 #include "either.hpp"
 
+using namespace ipp3;
 using namespace ipp3::data;
 
 int main(int argc, char** argv)
 {
-	QApplication app(argc, argv);
+	Either<int, const char*> lol = "wtf";
+	lol = 3;
+	lol = "trolololo";
+
+	if (lol.isLeft()) {
+		std::cout << lol.left() << std::endl;
+	} else {
+		std::cout << lol.right() << std::endl;
+	}
+
+	Either<int, int> num = {5, TagLeft{}};
+	num = {3, TagRight{}};
+	std::cout << num.isRight() << " " << num.right() << std::endl;
+
+// 	QApplication app(argc, argv);
 	QFile file("data/test.ltf");
 	file.open(QIODevice::ReadOnly);
 	QTextStream stream(&file);
@@ -31,5 +46,5 @@ int main(int argc, char** argv)
 			std::cout << "Error: " << tokenizer.errorMessage().toStdString() << std::endl;
 			break;
 	}
-	return app.exec();
+	return 0;//app.exec();
 }

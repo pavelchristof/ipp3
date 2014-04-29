@@ -3,7 +3,7 @@
 namespace ipp3 {
 namespace data {
 
-QString Token::toString()
+QString Token::toString() const
 {
 	switch (type) {
 		case TagStart:
@@ -32,5 +32,5 @@ QString Token::toString()
 	}
 }
 
-}
-}
+} // namespace data
+} // namespace ipp3

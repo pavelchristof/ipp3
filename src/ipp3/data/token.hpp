@@ -57,7 +57,7 @@ struct Token
 	Type type;
 	QString data;
 
-	QString toString();
+	QString toString() const;
 };
 
 } // namespace data
