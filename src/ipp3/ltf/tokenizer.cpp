@@ -3,15 +3,15 @@
 #include <QtCore/QTextStream>
 
 namespace ipp3 {
-namespace data {
+namespace ltf {
 
 Tokenizer::Tokenizer(QTextStream* stream) :
 	stream(stream),
 	status_(Status::Available),
 	state(State::Default)
 {
-	input.reset([stream] (QChar& c) -> bool {
-		(*stream) >> c; 
+	input.reset([stream] (QChar* c) -> bool {
+		(*stream) >> (*c); 
 		return stream->status() == QTextStream::Ok;
 	});
 
@@ -19,29 +19,41 @@ Tokenizer::Tokenizer(QTextStream* stream) :
 	entities.insert("gt", '>');
 	entities.insert("amp", '&');
 	entities.insert("quot", '"');
+
+	// Read the first token into the output queue or fail trying.
+	while (status_ == Status::Available && output.empty()) {
+		step();
+	}
 }
 
 Token Tokenizer::read()
 {
-	while (status() == Status::Available && output.isEmpty()) {
+	// There is at least one token in the output queue.
+	Q_ASSERT(status() == Status::Available);
+
+	// Consume input until we have 2 tokens in the ouput queue or until 
+	// we encounter EOF or an error.
+	while (status_ == Status::Available && output.size() < 2) {
 		step();
 	}
 
-	if (output.isEmpty()) {
-		return Token(Token::EndOfFile);
-	} else {
-		return output.dequeue();
-	}
+	return output.dequeue();
 }
 
 Tokenizer::Status Tokenizer::status()
 {
+	// Notice that status_ does not always equal status():
+	// We may have encountered an error or EOF internally because we are
+	// buffering output, but as long as there are tokens in the output queue
+	// the user should see status as Available.
+	if (!output.isEmpty())
+		return Status::Available;
 	return status_;
 }
 
 QString Tokenizer::errorMessage()
 {
-	Q_ASSERT(status_ == Status::Failed);
+	Q_ASSERT(status() == Status::Failed);
 	return errorMessage_;
 }
 
@@ -58,6 +70,7 @@ void Tokenizer::fail(const QString& msg)
 
 void Tokenizer::finish()
 {
+	yield(Token::EndOfFile);
 	status_ = Status::Completed;
 }
 
@@ -110,7 +123,7 @@ void Tokenizer::stepDefault()
 {
 	QChar c;
 
-	if (!input.get(c)) {
+	if (!input.get(&c)) {
 		flushText();
 		finish();
 		return;
@@ -126,11 +139,11 @@ void Tokenizer::stepDefault()
 	}
 }
 
-void Tokenizer::stepEntity(QString& buffer, ipp3::data::Tokenizer::State cont)
+void Tokenizer::stepEntity(QString& buffer, State cont)
 {
 	QChar c;
 
-	if (!input.get(c)) {
+	if (!input.get(&c)) {
 		fail("Unfinished entity " + entity);
 		return;
 	}
@@ -154,7 +167,7 @@ void Tokenizer::stepLT()
 {
 	QChar c;
 
-	if (!input.peek(c)) {
+	if (!input.peek(&c)) {
 		yield(Token::TagStart);
 		finish();
 		return;
@@ -173,7 +186,7 @@ void Tokenizer::stepInTag()
 {
 	QChar c;
 
-	if (!input.get(c)) {
+	if (!input.get(&c)) {
 		flushIdentifier();
 		finish();
 		return;
@@ -202,7 +215,7 @@ void Tokenizer::stepQuoted()
 {
 	QChar c;
 
-	if (!input.get(c)) {
+	if (!input.get(&c)) {
 		fail("Unfinished quoted string: \"" + quoted + "\"");
 		return;
 	}
@@ -218,5 +231,5 @@ void Tokenizer::stepQuoted()
 	}
 }
 
-} // namespace data
+} // namespace ltf
 } // namespace ipp3

@@ -1,5 +1,5 @@
-#ifndef IPP3_DATA_TOKENIZER_HPP
-#define IPP3_DATA_TOKENIZER_HPP
+#ifndef IPP3_LTF_TOKENIZER_HPP
+#define IPP3_LTF_TOKENIZER_HPP
 
 #include "token.hpp"
 #include "peekbuffer.hpp"
@@ -11,8 +11,18 @@
 class QTextStream;
 
 namespace ipp3 {
-namespace data {
+namespace ltf {
 
+/**
+ * Tokenizer for the language tests format.
+ * 
+ * The format description can be found in "docs/ltf.txt".
+ * 
+ * @details
+ * The tokenizer is implemented as a finite state machine. It reads input char
+ * by char and pushes tokens to a queue. Input is processed as needed, keeping
+ * at least one token in the queue (if possible).
+ */
 class Tokenizer
 {
 public:
@@ -21,23 +31,34 @@ public:
 	enum class Status
 	{
 		/**
-		 * There are tokens to read.
+		 * Guarantees that there is at least one more token to read.
 		 */
 		Available,
 		
 		/**
-		 * The stream has completed with no errors.
+		 * There are no more tokens and no errors were encountered.
 		 */
 		Completed,
 		
 		/**
-		 * An error was encountered.
+		 * There are no more tokens and an error was encountered.
 		 */
 		Failed
 	};
 
+	/**
+	 * Reads a token. Can be called only when the status is Available.
+	 */
 	Token read();
+
+	/**
+	 * The current status.
+	 */
 	Status status();
+
+	/**
+	 * The error message. Can be caled only when the status is Failed.
+	 */
 	QString errorMessage();
 
 private:
@@ -81,7 +102,7 @@ private:
 	QMap<QString, QChar> entities;
 };
 
-} // namespace data
+} // namespace ltf
 } // namespace ipp3
 
-#endif // IPP3_DATA_TOKENIZER_HPP
+#endif // IPP3_LTF_TOKENIZER_HPP

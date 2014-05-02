@@ -1,0 +1,85 @@
+Language tests format v0.1
+
+1. Description.
+
+The format is similiar to HTML. It has 3 tags:
+    <task>...</task>
+        A task. It may contain some text that will be shown, as well as 
+        "gap" or "extra" tags.
+    <gap img="test.png>some text</gap>
+        Makes a gap in the text, with "some text" as the valid answer.
+        The img attribute is optional and specifies an image path, relative
+        to the ltf file, that will be displayed in place of the gap.
+    <extra>some text</extra>
+        Extra phrase that fills no gap, but will be added to possible choices.
+
+Some HTML-like entities are supported. There are currently 4:
+    &amp; encodes &
+    &lt; encodes <
+    &gt; encodes >
+    &quot; encodes "
+
+2. Example.
+
+<task>
+    Ala ma <gap img="cat.png">kota</gap>.
+    <extra>psa</extra>
+    <extra>pingwina</extra>
+</task>
+
+<task>
+    Buffalo buffalo <gap>Buffalo</gap> buffalo <gap>buffalo</gap> 
+    <gap>buffalo</gap> Buffalo buffalo.
+    <extra>BuFFaLo</extra>
+    <extra>Buffalo</extra>
+    <extra>BUFFALO</extra>
+</task>
+
+The first task will display a cat image in place of "kota" and provide 3
+choices to fill that gap: "kota", "psa" or "pingwina".
+The second task will display a sentence with 3 gaps and provide 6 choices
+with different capitalizations of the word "buffalo".
+
+3. Tokenizer
+
+There are 8 tokens, some of them are active only inside/outside a tag:
+    Active in all states:
+        TagStart: <
+        ClosingTagStart: </
+        EndOfFile
+    Active inside of a tag:
+        Identifer[String]: any string of letters, digits or underscores
+        Equals: =
+        Quoted[String]: "any string of characters other then quotation marks,
+                         may contains multiple lines and entities"
+        TagEnd: >
+    Active outside of a tag:
+        Text[String]: any string of characters that does not contain other tokens,
+                      but may contain entities.
+
+Entities in Text or Quoted get replaced by the character they encode.
+
+4. Grammar
+
+The grammar is written in modified BNF. To avoid confusion with tags I use 
+{symbol} insead of <symbol> to denote a nonterminal.
+
+{document} ::= {task} {document}
+             | Text {document}
+             | EndOfFile
+
+{task} ::= < Identifier["task"] {attributes} > {task_content} </ Identifier["task"] >
+
+{task_content} ::= {gap} {task_content}
+                 | {extra} {task_content}
+                 | Text {task_content}
+                 | ε
+
+{gap} ::= < Identifer["gap"] {attributes} > Text </ Identifer["gap"] >
+
+{extra} ::= < Identifer["extra"] {attributes} > Text </ Identifer["extra"] >
+
+{attributes} ::= {attribute} {attributes}
+               | ε
+
+{attribute} ::= Identifier = Quoted

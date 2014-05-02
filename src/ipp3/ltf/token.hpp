@@ -1,10 +1,10 @@
-#ifndef IPP3_DATA_TOKEN_HPP
-#define IPP3_DATA_TOKEN_HPP
+#ifndef IPP3_LTF_TOKEN_HPP
+#define IPP3_LTF_TOKEN_HPP
 
 #include <QtCore/QString>
 
 namespace ipp3 {
-namespace data {
+namespace ltf {
 
 struct Token 
 {
@@ -60,7 +60,7 @@ struct Token
 	QString toString() const;
 };
 
-} // namespace data
+} // namespace ltf
 } // namespace ipp3
 
-#endif // IPP3_DATA_TOKEN_HPP
+#endif // IPP3_LTF_TOKEN_HPP

@@ -1,7 +1,7 @@
 #include "token.hpp"
 
 namespace ipp3 {
-namespace data {
+namespace ltf {
 
 QString Token::toString() const
 {
@@ -32,5 +32,5 @@ QString Token::toString() const
 	}
 }
 
-} // namespace data
+} // namespace ltf
 } // namespace ipp3

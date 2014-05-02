@@ -1,5 +1,5 @@
-#ifndef IPP3_DATA_DOCUMENT_HPP
-#define IPP3_DATA_DOCUMENT_HPP
+#ifndef IPP3_LTF_DOCUMENT_HPP
+#define IPP3_LTF_DOCUMENT_HPP
 
 #include <QtCore/QString>
 #include <QtCore/QVector>
@@ -7,7 +7,7 @@
 #include "../either.hpp"
 
 namespace ipp3 {
-namespace data {
+namespace ltf {
 
 struct Gap {
 	QString img;
@@ -16,16 +16,14 @@ struct Gap {
 
 struct Task {
 	QVector<Either<QString, Gap>> content;
-	QVector<Gap> extraGaps;
+	QVector<QString> extra;
 };
 
 struct Document {
 	QVector<Task> tasks;
-
-	void clear();
 };
 
-} // namespace data
+} // namespace ltf
 } // namespace ipp3
 
-#endif // IPP3_DATA_DOCUMENT_HPP
+#endif // IPP3_LTF_DOCUMENT_HPP
