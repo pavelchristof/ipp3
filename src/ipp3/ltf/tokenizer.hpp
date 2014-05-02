@@ -2,7 +2,7 @@
 #define IPP3_LTF_TOKENIZER_HPP
 
 #include "token.hpp"
-#include "peekbuffer.hpp"
+#include "../peekbuffer.hpp"
 
 #include <QtCore/QString>
 #include <QtCore/QQueue>

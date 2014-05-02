@@ -1,10 +1,9 @@
-#ifndef IPP3_LTF_PEEKBUFFER_HPP
-#define IPP3_LTF_PEEKBUFFER_HPP
+#ifndef IPP3_PEEKBUFFER_HPP
+#define IPP3_PEEKBUFFER_HPP
 
 #include <functional>
 
 namespace ipp3 {
-namespace ltf {
 
 template <typename Element>
 class PeekBuffer
@@ -54,7 +53,6 @@ private:
 	Source receive;
 };
 
-} // namespace ltf
 } // namespace ipp3
 
-#endif // IPP3_LTF_PEEKBUFFER_HPP
+#endif // IPP3_PEEKBUFFER_HPP
