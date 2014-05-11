@@ -125,6 +125,7 @@ void TestView::setupButtonsGrid()
 	for (Model::Task task : model()->tasks()) {
 		QPushButton* button = new QPushButton(tr("%n", nullptr, task.index() + 1));
 		button->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+		button->setMinimumSize(10, 20);
 		connect(button, &QPushButton::clicked, [=] () { switchTask(task); });
 		ui->buttonsGrid->addWidget(button, task.index() / 4, task.index() % 4);
 		buttons.push_back(qMakePair(button, task));
