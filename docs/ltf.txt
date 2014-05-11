@@ -6,7 +6,7 @@ The format is similiar to HTML. It has 3 tags:
     <task>...</task>
         A task. It may contain some text that will be shown, as well as 
         "gap" or "extra" tags.
-    <gap img="test.png>some text</gap>
+    <gap img="test.png">some text</gap>
         Makes a gap in the text, with "some text" as the valid answer.
         The img attribute is optional and specifies an image path, relative
         to the ltf file, that will be displayed in place of the gap.
