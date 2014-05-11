@@ -16,6 +16,7 @@ class StartScreen : public QWidget
 	Q_OBJECT
 public:
 	StartScreen();
+	~StartScreen();
 
 signals:
 	void testFileChosen(const QString& fileName);

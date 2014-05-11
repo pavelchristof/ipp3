@@ -14,6 +14,11 @@ StartScreen::StartScreen()
 			this, &StartScreen::showOpenFileDialog);
 }
 
+StartScreen::~StartScreen()
+{
+	delete ui;
+}
+
 void StartScreen::showOpenFileDialog()
 {
 	QString fileName = QFileDialog::getOpenFileName(

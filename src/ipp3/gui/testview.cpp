@@ -37,6 +37,9 @@ TestView::TestView(Model* model) :
 TestView::~TestView()
 {
 	delete model_;
+	delete textLayout;
+	delete choiceLayout;
+	delete ui;
 }
 
 Model* TestView::model()
