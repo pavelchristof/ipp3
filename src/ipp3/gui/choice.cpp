@@ -9,6 +9,7 @@ namespace gui {
 Choice::Choice(Model::Phrase phrase) :
 	modelPhrase_(phrase)
 {
+	setCursor(QCursor(Qt::PointingHandCursor));
 	setLayout(new QStackedLayout());
 	label = new QLabel(phrase.words().join(' '));
 	layout()->addWidget(label);

@@ -9,6 +9,7 @@ namespace gui {
 Gap::Gap(Model::Gap modelGap) :
 	modelGap_(modelGap)
 {
+	setCursor(QCursor(Qt::PointingHandCursor));
 	setLayout(new QStackedLayout());
 	label = new QLabel();
 	layout()->addWidget(label);
