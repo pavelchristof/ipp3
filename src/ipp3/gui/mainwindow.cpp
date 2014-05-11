@@ -15,6 +15,7 @@ MainWindow::MainWindow()
 	setCentralWidget(startScreen);
 	connect(startScreen, &StartScreen::testFileChosen,
 			this, &MainWindow::testFileChosen);
+	setWindowTitle(tr("Language tests"));
 }
 
 void MainWindow::testFileChosen(const QString& fileName)
@@ -36,12 +37,14 @@ void MainWindow::testFileChosen(const QString& fileName)
 
 	QFileInfo fileInfo(file);
 	Model* model = new Model(doc, fileInfo.dir());
+
 	testView = new TestView(model);
 	testView->show();
 	setCentralWidget(testView);
-	startScreen->deleteLater();
+	delete startScreen;
+
+	setWindowTitle(windowTitle() + " - " + fileInfo.absoluteFilePath());
 	showMaximized();
-	update();
 }
 
 }
