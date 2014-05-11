@@ -14,7 +14,7 @@ Gap::Gap(Model::Gap modelGap) :
 	label = new QLabel();
 	layout()->addWidget(label);
 	if (modelGap.hasImage()) {
-		pixmap = QPixmap::fromImage(modelGap.image()).scaled(200, 50, Qt::KeepAspectRatio);
+		pixmap = QPixmap::fromImage(modelGap.image()).scaled(200, 100, Qt::KeepAspectRatio);
 	}
 	refresh();
 }

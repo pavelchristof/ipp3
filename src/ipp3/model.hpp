@@ -223,7 +223,6 @@ private:
 	struct TaskData {
 		bool isFinished;
 		int correctAnswers;
-		int totalAnswers;
 		QVector<int> gapIndices;
 		QVector<int> choiceBox;
 		QVector<Either<QString, int>> text;

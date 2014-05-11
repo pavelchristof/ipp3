@@ -11,3 +11,150 @@
 	<extra>Buffalo</extra>
 	<extra>BUFFALO</extra>
 </task>
+
+<task>
+	<gap>Luka</gap> na początku zdania.
+	<extra>luka</extra>
+</task>
+
+<task>
+	Luka na końcu <gap>zdania.</gap>
+	<extra>testu.</extra>
+</task>
+
+<task>
+Lorem <gap>ipsum</gap> dolor sit amet, consectetur adipiscing elit. Morbi purus leo, adipiscing ut cursus id, consequat nec arcu. Ut porta vitae nibh id suscipit. Sed fermentum elit leo, non bibendum velit pharetra in. Nullam accumsan leo vitae elit rhoncus sagittis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean at lectus libero. Vivamus at elit sit amet justo lacinia imperdiet ornare ac ante. Ut egestas, dolor a tristique vestibulum, risus mauris scelerisque neque, sed pulvinar dolor odio non odio. Fusce gravida dolor magna, sit amet rhoncus orci adipiscing eu. Phasellus lobortis leo et lectus lobortis, sit amet porta dolor dictum. Vestibulum sem massa, pellentesque nec lacinia ac, consectetur non erat. Donec ut sollicitudin leo, dictum molestie risus. Quisque vel vulputate justo. Integer sed felis malesuada, dictum justo sit amet, accumsan purus. Aenean mollis molestie nunc, non faucibus neque gravida non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+Nullam a quam vel felis pellentesque tristique vel eu purus. Donec ac eros vel risus sagittis pretium. Sed sagittis, nisl non tristique rhoncus, lectus diam viverra sapien, nec rutrum libero nisl non arcu. Suspendisse bibendum pellentesque ligula, non aliquam mi viverra sit amet. Donec id risus ut nibh vestibulum commodo. Pellentesque quis porta tortor, nec tristique tortor. Maecenas massa eros, semper ut elit sit amet, consequat eleifend neque. Praesent rhoncus urna magna, et suscipit justo accumsan et. Etiam aliquet iaculis dolor.
+Nullam sodales, erat sed malesuada <gap>pulvinar</gap>, nunc sapien eleifend lectus, eu feugiat odio diam in urna. Aenean sit amet justo magna. Sed faucibus ultricies neque, ut imperdiet lorem rutrum eget. Cras vulputate sodales rhoncus. Etiam vitae malesuada eros. Curabitur adipiscing gravida ultricies. Curabitur a nunc elit. Sed urna tellus, semper sed lacus vitae, malesuada pharetra ipsum. Nunc sed rhoncus diam, vitae scelerisque massa. In pharetra nisi quis viverra blandit. Praesent lacinia dignissim turpis. Curabitur non rutrum nisi. Nunc sem lacus, adipiscing vitae facilisis eget, laoreet eget metus.
+In consectetur consectetur egestas. Donec interdum tristique cursus. Praesent aliquet vitae turpis ac pellentesque. Vestibulum blandit elementum eros, et rhoncus ante bibendum nec. Maecenas luctus posuere ligula eget consectetur. Suspendisse dolor lorem, pretium non dui ut, tristique gravida est. Ut non facilisis ipsum. Nunc in sapien nec metus iaculis pharetra. Quisque congue metus quis augue dignissim tincidunt.
+Aliquam erat volutpat. Duis posuere massa a nisl ultrices <gap>egestas</gap> sed quis magna. Nam vehicula sed nisi lacinia fermentum. Donec vitae magna nec elit vestibulum ultrices. Proin mollis massa nec ornare elementum. Vestibulum sodales neque varius sapien ultrices facilisis. Proin vitae dignissim est. Aliquam et scelerisque arcu. Phasellus rutrum enim risus, non eleifend risus faucibus nec. Suspendisse id quam turpis. Praesent iaculis, erat a ultricies imperdiet, lectus nunc molestie tortor, lobortis ullamcorper ipsum erat nec lorem. Donec ut feugiat quam. Curabitur sollicitudin et diam ut sollicitudin.
+Aliquam vitae fermentum felis. Vivamus molestie pretium dapibus. Fusce consequat libero sed magna pellentesque volutpat. Sed hendrerit tincidunt sapien vel tristique. Etiam vulputate ultricies lectus nec vulputate. In hendrerit velit mattis, faucibus urna id, tempor ipsum. Donec fermentum blandit nisl luctus iaculis. Etiam at justo posuere, lobortis metus quis, porttitor magna. In vel condimentum augue. Nullam eleifend odio ac tempus cursus. Integer adipiscing consequat posuere. Vestibulum iaculis nisi vitae sapien pellentesque pulvinar. Sed et augue sit amet ipsum dapibus pellentesque tristique a enim. In sit amet gravida arcu.
+Vestibulum accumsan fermentum odio. Aenean pulvinar in eros non mollis. <gap>Phasellus</gap> dictum pharetra lorem in sollicitudin. Quisque pharetra in sem vitae volutpat. Praesent mattis vel nisi non ultrices. Quisque et posuere mauris, scelerisque ornare ligula. Etiam vulputate nec dolor quis consequat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque faucibus a odio eu fringilla.
+Ut quis odio a ante condimentum mattis. Aliquam a ante in nibh malesuada dapibus. <gap>Vestibulum</gap> ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sit amet elementum mi. Nam vulputate in odio id lobortis. Mauris hendrerit, purus sed ornare faucibus, libero neque rutrum ipsum, posuere malesuada odio enim nec augue. Etiam quis faucibus lectus. Curabitur augue libero, faucibus interdum mattis sit amet, mattis non enim. Aenean vel porttitor augue, eget dictum tellus. Nulla pulvinar vitae nibh eget tempor. Ut mattis elementum suscipit. Vivamus quis vehicula enim. Ut cursus lectus quis erat ornare, a venenatis tortor dignissim. Ut mollis semper erat, vitae pharetra tellus. Praesent eu dui ut est scelerisque pellentesque.
+</task>
+
+<task>
+	"Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz" means <gap>"beef labeling regulation &amp; delegation of supervision law"</gap>.
+	<extra>"Danube steamship company captain"</extra>
+	<extra>"legal protection insurance companies"</extra>
+	<extra>"regulation requiring a prescription for an anesthetic"</extra>
+</task>
+
+<task>
+int main() { puts(<gap>"Hello world!"</gap>); return <gap>0</gap>; }
+<extra>Hello world!</extra>
+<extra>1</extra>
+<extra>"Hello world!\n"</extra>
+<extra>-1</extra>
+</task>
+
+<task>
+fibb = 0:1:(<gap>zipWith</gap> (+) fibb (<gap>tail</gap> fibb))
+<extra>foldl</extra>
+<extra>head</extra>
+<extra>lift</extra>
+<extra>map</extra>
+<extra>traverse</extra>
+</task>
+
+<task>
+++++++++[>++<gap>++[>++></gap>+++>+++>+&lt;&lt;&lt;&lt;-]>+>+<gap>>->>+[&lt;]</gap>&lt;-]>>.>--<gap>-.+++++++..+</gap>++.>>.&lt;-.&lt;.+++.------.--------.>>+.>++.
+<extra>++[>++</extra>
+<extra>[>[>+++</extra>
+<extra>--&lt;-.++</extra>
+<extra>++..&lt;.+++[></extra>
+<extra>>>+.>++</extra>
+</task>
+
+<task>
+James while <gap>John had had had</gap> had had had had <gap>had had had had a better</gap> effect on the teacher
+<extra>John had</extra>
+<extra>John had had</extra>
+<extra>John had had had had</extra>
+<extra>John had had had had had</extra>
+<extra>had a better</extra>
+<extra>had had a better</extra>
+<extra>had had had a better</extra>
+<extra>had had had had had a better</extra>
+</task>
+
+<task>
+DESU DESU DESU DESU DESU DESU DESU DESU DESU <gap img="cat0.jpg">DESU</gap> DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU 
+DESU DESU DESU <gap img="cat1.jpg">DESU</gap> DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU <gap img="cat2.jpg">DESU</gap> DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU 
+DESU DESU DESU DESU DESU DESU <gap img="cat3.jpg">DESU</gap> DESU DESU DESU DESU DESU DESU DESU DESU <gap img="two-cats.jpg">DESU DESU</gap> DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU 
+DESU <gap img="cat4.jpg">DESU</gap> DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU DESU <gap img="cat5.jpg">DESU</gap> DESU DESU DESU DESU DESU 
+<extra>DESU</extra>
+<extra>DESU</extra>
+<extra>DESU</extra>
+<extra>DESU</extra>
+<extra>DESU</extra>
+<extra>DESU</extra>
+</task>
+
+<task>
+0 1 1 <gap>2</gap> <gap>3</gap> 5 <gap>8</gap> 13 21 <gap>34</gap> 55
+<extra>1</extra>
+<extra>7</extra>
+<extra>23</extra>
+<extra>35</extra>
+</task>
+
+<task>
+1 1 1 1 2 3 6 11 23 47 <gap>106</gap> 235 551 <gap>1301</gap> 3159 7741 <gap>19320</gap> 48629
+<extra>115</extra>
+<extra>97</extra>
+<extra>1603</extra>
+<extra>20235</extra>
+<extra>25312</extra>
+<extra>15278</extra>
+</task>
+
+<task>
+<gap>Litwo,</gap> <gap>Ojczyzno</gap> <gap>moja!</gap> <gap>ty</gap> <gap>jesteś</gap> <gap>jak</gap> <gap>zdrowie;</gap> <gap>Ile</gap> <gap>cię</gap> <gap>trzeba</gap> <gap>cenić,</gap> <gap>ten</gap> <gap>tylko</gap> <gap>się</gap> <gap>dowie,</gap> <gap>Kto</gap> <gap>cię</gap> <gap>stracił.</gap> <gap>Dziś</gap> <gap>piękność</gap> <gap>twą</gap> <gap>w</gap> <gap>całej</gap> <gap>ozdobie</gap> <gap>Widzę</gap> <gap>i</gap> <gap>opisuję,</gap> <gap>bo</gap> <gap>tęsknię</gap> <gap>po</gap> <gap>tobie.</gap> <gap>Panno</gap> <gap>święta,</gap> <gap>co</gap> <gap>Jasnej</gap> <gap>bronisz</gap> <gap>Częstochowy</gap> <gap>I</gap> <gap>w</gap> <gap>Ostrej</gap> <gap>świecisz</gap> <gap>Bramie!</gap> <gap>Ty,</gap> <gap>co</gap> <gap>gród</gap> <gap>zamkowy</gap> <gap>Nowogródzki</gap> <gap>ochraniasz</gap> <gap>z</gap> <gap>jego</gap> <gap>wiernym</gap> <gap>ludem!</gap> <gap>Jak</gap> <gap>mnie</gap> <gap>dziecko</gap> <gap>do</gap> <gap>zdrowia</gap> <gap>powróciłaś</gap> <gap>cudem</gap> <gap>(</gap> <gap>Gdy</gap> <gap>od</gap> <gap>płaczącej</gap> <gap>matki,</gap> <gap>pod</gap> <gap>Twoją</gap> <gap>opiekę</gap> <gap>Ofiarowany</gap> <gap>martwą</gap> <gap>podniosłem</gap> <gap>powiekę;</gap> <gap>I</gap> <gap>zaraz</gap> <gap>mogłem</gap> <gap>pieszo,</gap> <gap>do</gap> <gap>Twych</gap> <gap>świątyń</gap> <gap>progu</gap> <gap>Iść</gap> <gap>za</gap> <gap>wrócone</gap> <gap>życie</gap> <gap>podziękować</gap> <gap>Bogu</gap> <gap>)</gap> <gap>Tak</gap> <gap>nas</gap> <gap>powrócisz</gap> <gap>cudem</gap> <gap>na</gap> <gap>Ojczyzny</gap> <gap>łono!...</gap> <gap>Tymczasem,</gap> <gap>przenoś</gap> <gap>moją</gap> <gap>duszę</gap> <gap>utęsknioną</gap> <gap>Do</gap> <gap>tych</gap> <gap>pagórków</gap> <gap>leśnych,</gap> <gap>do</gap> <gap>tych</gap> <gap>łąk</gap> <gap>zielonych,</gap> <gap>Szeroko</gap> <gap>nad</gap> <gap>błękitnym</gap> <gap>Niemnem</gap> <gap>rozciągnionych;</gap> <gap>Do</gap> <gap>tych</gap> <gap>pól</gap> <gap>malowanych</gap> <gap>zbożem</gap> <gap>rozmaitem,</gap> <gap>Wyzłacanych</gap> <gap>pszenicą,</gap> <gap>posrebrzanych</gap> <gap>żytem;</gap> <gap>Gdzie</gap> <gap>bursztynowy</gap> <gap>świerzop,</gap> <gap>gryka</gap> <gap>jak</gap> <gap>śnieg</gap> <gap>biała,</gap> <gap>Gdzie</gap> <gap>panieńskim</gap> <gap>rumieńcem</gap> <gap>dzięcielina</gap> <gap>pała,</gap> <gap>A</gap> <gap>wszystko</gap> <gap>przepasane</gap> <gap>jakby</gap> <gap>wstęgą,</gap> <gap>miedzą</gap> <gap>Zieloną,</gap> <gap>na</gap> <gap>niej</gap> <gap>zrzadka</gap> <gap>ciche</gap> <gap>grusze</gap> <gap>siedzą.</gap>
+</task>
+
+<task>
+Ubiquitous theory and <gap>extreme</gap> programming have garnered improbable interest from both computational biologists and 
+systems engineers in the last several years. In fact, <gap>few leading analysts</gap> would disagree with the exploration of 
+write-back caches, which embodies the appropriate principles of autonomous cryptoanalysis. In order to surmount this 
+challenge, we examine how <gap>evolutionary</gap> programming can be applied to the evaluation of <gap>suffix trees</gap>.
+</task>
+
+<task>
+Motivated by the need for <gap>Smalltalk</gap>, we now present a model for disproving that the transistor and randomized
+algorithms can cooperate to overcome this obstacle. Despite the results by Suzuki and Wilson, we can show that the 
+foremost <gap>decentralized algorithm</gap> for the study of online algorithms by Mark Gayson et al. is <gap>optimal</gap>. we consider 
+a framework consisting of <gap>n Markov models</gap>. Further, our application does not require such a compelling evaluation to run
+correctly, but it <gap>doesn't hurt</gap>. This may or may not actually hold in reality. Despite the results by Kobayashi, 
+we can show that the much-touted <gap>introspective</gap> algorithm for the simulation of digital-to-analog converters by 
+Jackson et al. is optimal. <gap>this is</gap> a practical property of TopSol. See our related technical report for details.
+</task>
+
+<task>
+<gap img="6tcat.jpg">Six-toed kittens</gap> are so common in <gap>Boston</gap> and surrounding areas of 
+<gap>Massachusetts</gap> that experts consider it an established mutation.
+<extra>Chernobyl</extra>
+<extra>Pripyat</extra>
+</task>
+
+<task>
+A steady diet of <gap img="dog.jpg">dog</gap> food may cause blindness in your <gap img="catcat.jpg">cat</gap> - it lacks taurine.
+</task>
+
+<task>
+<gap img="cats.jpg">Cats</gap> have 32 muscles that control the outer <gap img="catear.jpg">ear</gap> (compared to human's 6 muscles each). 
+A <gap img="tac.jpg">cat</gap> can rotate its ears independently 180 degrees, and can turn in the direction of <gap>sound</gap> 
+10 times faster than those of the best <gap img="watchdog.jpg">watchdog</gap>.
+</task>
+
+<task>
+To już jest <gap>koniec</gap>, nie ma już nic,
+Jesteśmy <gap>wolni</gap>, możemy iść.
+To już jest <gap>koniec</gap>, możemy iść,
+Jesteśmy <gap>wolni</gap>, bo nie ma już nic.
+
+To już jest <gap>koniec</gap>, nie ma już nic,
+Jesteśmy <gap>wolni</gap>, możemy iść.
+To już jest <gap>koniec</gap>, możemy iść,
+Jesteśmy <gap>wolni</gap>, bo nie ma już nic.
+</task>

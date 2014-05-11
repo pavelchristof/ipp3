@@ -41,7 +41,7 @@ private:
 	void buildChoices();
 	void buildText();
 
-	void addChoice(Model::Phrase modelChoice);
+	Choice* addChoice(Model::Phrase modelChoice);
 	void addWord(const QString& word);
 	void addGap(Model::Gap modelGap);
 

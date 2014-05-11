@@ -15,7 +15,7 @@ MainWindow::MainWindow()
 	setCentralWidget(startScreen);
 	connect(startScreen, &StartScreen::testFileChosen,
 			this, &MainWindow::testFileChosen);
-	setWindowTitle(tr("Language tests"));
+	setWindowTitle(tr("Fill in gaps"));
 }
 
 void MainWindow::testFileChosen(const QString& fileName)

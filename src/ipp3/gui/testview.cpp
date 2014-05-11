@@ -6,6 +6,7 @@
 #include "../model.hpp"
 
 #include <QtWidgets/QLabel>
+#include <QtCore/QDebug>
 
 namespace ipp3 {
 namespace gui {
@@ -13,6 +14,8 @@ namespace gui {
 TestView::TestView(Model* model) : 
 	model_(model)
 {
+	qDebug() << "creating TestView";
+
 	ui = new Ui::TestView();
 	ui->setupUi(this);
 	textLayout = new FlowLayout(ui->text);
@@ -36,6 +39,7 @@ TestView::TestView(Model* model) :
 
 TestView::~TestView()
 {
+	qDebug() << "destroying TestView";
 	delete model_;
 	delete textLayout;
 	delete choiceLayout;
@@ -53,9 +57,9 @@ void TestView::switchTask(Model::Task task)
 	rebuild();
 }
 
-static QString formatScore(int correct, int total)
+static QString formatScore(int correct, int total, const QString& color)
 {
-	return QString("<span style=\"color: green\">%1</span>/%2").arg(correct).arg(total);
+	return QString("<span style=\"color: %3\">%1</span>/%2").arg(correct).arg(total).arg(color);
 }
 
 void TestView::rebuild()
@@ -68,6 +72,16 @@ void TestView::rebuild()
 
 void TestView::refresh()
 {
+	// update "The End!" label
+	bool allFinished = true;
+	for (Model::Task task : model()->tasks()) {
+		if (!task.isFinished()) {
+			allFinished = false;
+			break;
+		}
+	}
+	ui->theEndLabel->setVisible(allFinished);
+
 	// update background color
 	QString style = "background-color: White;";
 	if (model()->currentTask().isFinished()) {
@@ -89,16 +103,17 @@ void TestView::refresh()
 		}
 	}
 
-	// update check/reset/next buttons
+	// update check/next buttons
 	bool finished = model()->currentTask().isFinished();
 	ui->finishButton->setEnabled(!finished);
-	ui->resetButton->setEnabled(finished);
 	ui->nextButton->setEnabled(model()->hasNextTask());
+	ui->nextButton->setText(finished ? tr("Next") : tr("Skip"));
 
 	// update scores
 	ui->thisTestScore->setText(formatScore(model()->currentTask().correctAnswers(), 
-										   model()->currentTask().gapsCount()));
-	ui->totalScore->setText(formatScore(model()->correctAnswers(), model()->totalGaps()));
+										   model()->currentTask().gapsCount(), "green"));
+	ui->totalScore->setText(formatScore(model()->correctAnswers(), model()->totalGaps(), "green"));
+	ui->wrongAnswers->setText(formatScore(model()->wrongAnswers(), model()->totalGaps(), "red"));
 
 	// update score visibility
 	if (model()->currentTask().isFinished()) {
@@ -176,12 +191,13 @@ void TestView::buildText()
 	}
 }
 
-void TestView::addChoice(Model::Phrase modelChoice)
+Choice* TestView::addChoice(ipp3::Model::Phrase modelChoice)
 {
 	Choice* choice = new Choice(modelChoice);
 	connect(choice, &Choice::clicked, [=] () { choiceClicked(choice); });
 	choiceLayout->addWidget(choice);
 	choices.insert(choice);
+	return choice;
 }
 
 void TestView::addWord(const QString& word)
@@ -211,7 +227,15 @@ void TestView::gapClicked(Gap* gap)
 	if (!gap->modelGap().isEmpty()) {
 		Model::Phrase phrase = gap->modelGap().phrase();
 		model()->remove(gap->modelGap(), gap->modelGap().task().choicesCount());
-		addChoice(phrase);
+		Choice* choice = addChoice(phrase);
+
+		// Special case - if no word is chosen we choose the phrase that just 
+		// got added to the choices box.
+		if (!chosen) {
+			chosen = choice;
+			refresh();
+			return;
+		}
 	}
 
 	// Insert a phrase to the gap.

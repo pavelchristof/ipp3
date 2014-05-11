@@ -40,7 +40,7 @@ int Model::Task::correctAnswers() const
 
 int Model::Task::wrongAnswers() const
 {
-	return data().totalAnswers - data().correctAnswers;
+	return gapsCount() - data().correctAnswers;
 }
 
 int Model::Task::gapsCount() const
@@ -238,9 +238,17 @@ Model::Model(const ipp3::ltf::Document& doc, const QDir& imageDir) :
 		for (const QString& phrase : task.extra) {
 			pushPhrase(taskIndex, phrase);
 		}
+	}
 
-		std::random_shuffle(tasks_[taskIndex].choiceBox.begin(), 
-							tasks_[taskIndex].choiceBox.end());
+	// Sort phrases lexicographically.
+	QVector<QString> joinedAndLower;
+	for (PhraseData& pd : phrases_) {
+		joinedAndLower.append(pd.words.join(' ').toLower());
+	}
+	for (TaskData& td : tasks_) {
+		qSort(td.choiceBox.begin(), td.choiceBox.end(), [=] (int i, int j) {
+			return joinedAndLower[i] < joinedAndLower[j];
+		});
 	}
 }
 
@@ -249,7 +257,6 @@ int Model::pushTask()
 	TaskData td;
 	td.isFinished = false;
 	td.correctAnswers = 0;
-	td.totalAnswers = 0;
 	tasks_.push_back(td);
 
 	return tasks_.size() - 1;
@@ -368,11 +375,8 @@ int Model::insert(Phrase phrase, Gap gap)
 	int choiceIndex = td.choiceBox.indexOf(phrase.index_);
 	td.choiceBox.removeAt(choiceIndex);
 
-	td.totalAnswers += 1;
-	totalAnswers_ += 1;
 	if (gap.isCorrect()) {
 		td.correctAnswers += 1;
-		correctAnswers_ += 1;
 	}
 
 	return choiceIndex;
@@ -390,11 +394,8 @@ void Model::remove(Gap gap, uint insertBefore)
 	PhraseData& pd = phrases_[phrase.index_];
 	GapData& gd = gaps_[gap.index_];
 
-	td.totalAnswers -= 1;
-	totalAnswers_ -= 1;
 	if (gap.isCorrect()) {
 		td.correctAnswers -= 1;
-		correctAnswers_ -= 1;
 	}
 
 	td.choiceBox.insert(insertBefore, phrase.index_);
@@ -405,12 +406,18 @@ void Model::remove(Gap gap, uint insertBefore)
 
 void Model::finish()
 {
-	tasks_[currentTask_].isFinished = true;
+	TaskData& td = tasks_[currentTask_];
+	td.isFinished = true;
+	correctAnswers_ += td.correctAnswers;
+	totalAnswers_ += td.gapIndices.size();
 }
 
 void Model::reset()
 {
-	tasks_[currentTask_].isFinished = false;
+	TaskData& td = tasks_[currentTask_];
+	td.isFinished = false;
+	correctAnswers_ -= td.correctAnswers;
+	totalAnswers_ -= td.gapIndices.size();
 
 	// move phrases out of gaps
 	for (Gap gap : currentTask().gaps()) {
