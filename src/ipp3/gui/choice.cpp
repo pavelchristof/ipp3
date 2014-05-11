@@ -22,8 +22,8 @@ Model::Phrase Choice::modelPhrase() const
 
 void Choice::refresh(bool isChosen)
 {
-	QString style = "border-style:dashed; border-width: %1px; padding: %2px; ";
-	style = style.arg(Gap::borderWidth).arg(Gap::padding);
+	QString style = "border-style:%1; border-radius: %2px; border-width: %3px; padding: %4px; ";
+	style = style.arg(Gap::borderStyle).arg(Gap::borderRadius).arg(Gap::borderWidth).arg(Gap::padding);
 	if (isChosen) {
 		style += "background-color: LightSkyBlue";
 	}

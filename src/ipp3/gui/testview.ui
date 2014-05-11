@@ -21,6 +21,9 @@
        <enum>Qt::Vertical</enum>
       </property>
       <widget class="QScrollArea" name="textScrollArea">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
@@ -32,6 +35,10 @@
           <width>628</width>
           <height>269</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: White
+</string>
         </property>
        </widget>
       </widget>
@@ -47,6 +54,10 @@
           <width>628</width>
           <height>269</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: White
+</string>
         </property>
        </widget>
       </widget>
@@ -77,6 +88,16 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Tasks:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item>
       <layout class="QGridLayout" name="buttonsGrid"/>
      </item>

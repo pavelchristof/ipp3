@@ -15,8 +15,8 @@ TestView::TestView(Model* model) :
 {
 	ui = new Ui::TestView();
 	ui->setupUi(this);
-	textLayout = new FlowLayout(ui->textScrollArea->widget());
-	choiceLayout = new FlowLayout(ui->choicesScrollArea->widget());
+	textLayout = new FlowLayout(ui->text);
+	choiceLayout = new FlowLayout(ui->choices);
 	setupButtonsGrid();
 	switchTask(model->currentTask());
 
@@ -65,12 +65,22 @@ void TestView::rebuild()
 
 void TestView::refresh()
 {
+	// update background color
+	QString style = "background-color: White;";
+	if (model()->currentTask().isFinished()) {
+		ui->choices->setStyleSheet("");
+		ui->text->setStyleSheet("");
+	} else {
+		ui->choices->setStyleSheet(style);
+		ui->text->setStyleSheet(style);
+	}
+
 	// update buttons grid
 	for (auto pair : buttons) {
 		pair.first->setEnabled(pair.second != model()->currentTask());
 
 		if (pair.second.isFinished()) {
-			pair.first->setStyleSheet("background-color: green");
+			pair.first->setStyleSheet("background-color: DarkGrey");
 		} else {
 			pair.first->setStyleSheet("");
 		}
@@ -190,6 +200,9 @@ void TestView::addGap(Model::Gap modelGap)
 
 void TestView::gapClicked(Gap* gap)
 {
+	if (model()->currentTask().isFinished())
+		return;
+
 	// Remove a phrase from the gap.
 	if (!gap->modelGap().isEmpty()) {
 		Model::Phrase phrase = gap->modelGap().phrase();
@@ -211,6 +224,9 @@ void TestView::gapClicked(Gap* gap)
 
 void TestView::choiceClicked(Choice* choice)
 {
+	if (model()->currentTask().isFinished())
+		return;
+
 	if (chosen == choice) {
 		chosen = nullptr;
 	} else {

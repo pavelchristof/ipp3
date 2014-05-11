@@ -37,6 +37,7 @@ void MainWindow::testFileChosen(const QString& fileName)
 	QFileInfo fileInfo(file);
 	Model* model = new Model(doc, fileInfo.dir());
 	testView = new TestView(model);
+	testView->show();
 	setCentralWidget(testView);
 	startScreen->deleteLater();
 	showMaximized();

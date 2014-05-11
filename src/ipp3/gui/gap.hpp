@@ -14,6 +14,8 @@ class Gap : public QAbstractButton
 {
 	Q_OBJECT
 public:
+	static constexpr const char* borderStyle = "solid";
+	static const int borderRadius = 5;
 	static const int borderWidth = 2;
 	static const int padding = 2;
 
