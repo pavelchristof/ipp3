@@ -17,6 +17,7 @@ public:
 	 * Sets up the main window with the start screen.
 	 */
 	MainWindow();
+	~MainWindow();
 
 private:
 	void testFileChosen(const QString& fileName);

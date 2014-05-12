@@ -19,6 +19,11 @@ MainWindow::MainWindow() :
 	setWindowTitle(tr("Fill in gaps"));
 }
 
+MainWindow::~MainWindow() 
+{
+	clearContent();
+}
+
 void MainWindow::testFileChosen(const QString& fileName)
 {
 	QFile file(fileName);
