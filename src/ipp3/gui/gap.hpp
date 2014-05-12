@@ -32,6 +32,7 @@ private:
 	QPixmap pixmap;
 	Model::Gap modelGap_;
 };
+
 }
 }
 
