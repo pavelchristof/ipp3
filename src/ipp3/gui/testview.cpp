@@ -226,7 +226,7 @@ void TestView::gapClicked(Gap* gap)
 
 	if (chosenChoice) {
 		// Insert a phrase to the gap.
-		if (gap->modelGap->isEmpty()) {
+		if (gap->modelGap().isEmpty()) {
 			model()->insert(chosenChoice->modelPhrase(), gap->modelGap());
 			choiceLayout->removeWidget(chosenChoice);
 			choices.remove(chosenChoice);
@@ -234,24 +234,16 @@ void TestView::gapClicked(Gap* gap)
 			chosenChoice = nullptr;
 		}
 	} else if (chosenGap) {
-		if (chosenGap == gap) {
-			// Deselect.
-			chosenGap = nullptr;
-		} else {
-			// Move a phrase between gaps.
-			Model::Gap oldGap = chosenGap->modelGap();
-			Model::Gap newGap = gap->modelGap();
-			Model::Phrase phrase = oldGap->phrase();
+		// Swap a phrase between gaps (it does nothing if the gaps are equal).
+		model()->swap(chosenGap->modelGap(), gap->modelGap());
 
-			model().remove(oldGap);
-			model().insert(phrase, newGap);
-		}
+		// Deselect.
+		chosenGap = nullptr;
 	} else {
 		// Select the gap.
 		chosenGap = gap;
 	}
 
-	chosen = nullptr;
 	refresh();
 }
 
@@ -260,11 +252,13 @@ void TestView::choiceClicked(Choice* choice)
 	if (model()->currentTask().isFinished())
 		return;
 
-	if (chosen == choice) {
-		chosen = nullptr;
+	if (chosenChoice == choice) {
+		chosenChoice = nullptr;
 	} else {
-		chosen = choice;
+		chosenGap = nullptr;
+		chosenChoice = choice;
 	}
+
 	refresh();
 }
 

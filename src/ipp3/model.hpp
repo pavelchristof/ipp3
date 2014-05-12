@@ -203,6 +203,11 @@ public:
 	void remove(Gap gap, uint insertBefore = 0);
 
 	/**
+	 * Swap phrases between two gaps.
+	 */
+	void swap(Gap a, Gap b);
+
+	/**
 	 * Finish the current task.
 	 */
 	void finish();
@@ -215,6 +220,7 @@ public:
 private:
 	QStringList toWords(const QString& str) const;
 	int pushTask();
+	void sortChoices(int taskIndex);
 	void pushText(int taskIndex, const QString& text);
 	void pushPhrase(int taskIndex, const QString& phrase);
 	void pushPhrase(int taskIndex, const QStringList& words);
@@ -222,7 +228,6 @@ private:
 
 	struct TaskData {
 		bool isFinished;
-		int correctAnswers;
 		QVector<int> gapIndices;
 		QVector<int> choiceBox;
 		QVector<Either<QString, int>> text;
@@ -232,6 +237,7 @@ private:
 		// -1 encodes that the phrase is the choice box.
 		int gapIndex;
 		QStringList words;
+		QString joinedLower;
 		int taskIndex;
 	};
 
@@ -248,8 +254,6 @@ private:
 	QVector<PhraseData> phrases_;
 	QVector<GapData> gaps_;
 	int currentTask_;
-	int correctAnswers_;
-	int totalAnswers_;
 
 	friend Task;
 	friend Phrase;

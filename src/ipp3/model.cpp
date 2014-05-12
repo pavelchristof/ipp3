@@ -3,6 +3,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QDebug>
+#include <QtWidgets/QMessageBox>
 
 namespace ipp3 {
 
@@ -35,12 +36,24 @@ bool Model::Task::isFinished() const
 
 int Model::Task::correctAnswers() const
 {
-	return data().correctAnswers;
+	int ans = 0;
+	for (Model::Gap gap : gaps()) {
+		if (gap.isCorrect()) {
+			ans++;
+		}
+	}
+	return ans;
 }
 
 int Model::Task::wrongAnswers() const
 {
-	return gapsCount() - data().correctAnswers;
+	int ans = 0;
+	for (Model::Gap gap : gaps()) {
+		if (gap.isWrong()) {
+			ans++;
+		}
+	}
+	return ans;
 }
 
 int Model::Task::gapsCount() const
@@ -222,7 +235,7 @@ const Model::GapData& Model::Gap::data() const
 // Model
 
 Model::Model(const ipp3::ltf::Document& doc, const QDir& imageDir) :
-	currentTask_(0), correctAnswers_(0), totalAnswers_(0)
+	currentTask_(0)
 {
 	for (const ltf::Task& task : doc.tasks) {
 		int taskIndex = pushTask();
@@ -241,22 +254,26 @@ Model::Model(const ipp3::ltf::Document& doc, const QDir& imageDir) :
 	}
 
 	// Sort phrases lexicographically.
-	QVector<QString> joinedAndLower;
-	for (PhraseData& pd : phrases_) {
-		joinedAndLower.append(pd.words.join(' ').toLower());
+	for (int i = 0; i < tasks_.size(); ++i) {
+		sortChoices(i);
 	}
-	for (TaskData& td : tasks_) {
-		qSort(td.choiceBox.begin(), td.choiceBox.end(), [=] (int i, int j) {
-			return joinedAndLower[i] < joinedAndLower[j];
-		});
-	}
+}
+
+void Model::sortChoices(int taskIndex)
+{
+	TaskData& td = tasks_[taskIndex];
+	qSort(td.choiceBox.begin(), td.choiceBox.end(), [=] (int i, int j) {
+		int cmp = phrases_[i].joinedLower.compare(phrases_[j].joinedLower);
+		if (cmp != 0)
+			return cmp < 0;
+		return i < j;
+	});
 }
 
 int Model::pushTask()
 {
 	TaskData td;
 	td.isFinished = false;
-	td.correctAnswers = 0;
 	tasks_.push_back(td);
 
 	return tasks_.size() - 1;
@@ -282,6 +299,7 @@ void Model::pushPhrase(int taskIndex, const QStringList& words)
 	PhraseData pd;
 	pd.gapIndex = -1;
 	pd.words = words;
+	pd.joinedLower = words.join(' ').toLower();
 	pd.taskIndex = taskIndex;
 	phrases_.push_back(pd);
 }
@@ -300,8 +318,8 @@ void Model::pushGap(int taskIndex, const ltf::Gap& gap, const QDir& imageDir)
 		QFileInfo pathInfo(imageDir, gap.img);
 		if (!gd.image.load(pathInfo.absoluteFilePath())) {
 			// TODO: showing a message box here isn't pretty
-			QMessageBox::warning(nullptr, tr("Warning"),
-				tr("Cannot load image \"%1\".").arg(pathInfo.absoluteFilePath()));
+			QMessageBox::warning(nullptr, QObject::tr("Warning"),
+				QObject::tr("Cannot load image \"%1\".").arg(pathInfo.absoluteFilePath()));
 		}
 	}
 
@@ -344,12 +362,22 @@ Model::Task Model::nextTask()
 
 int Model::correctAnswers() const
 {
-	return correctAnswers_;
+	int ans = 0;
+	for (Task task : tasks()) {
+		if (task.isFinished())
+			ans += task.correctAnswers();
+	}
+	return ans;
 }
 
 int Model::wrongAnswers() const
 {
-	return totalAnswers_ - correctAnswers_;
+	int ans = 0;
+	for (Task task : tasks()) {
+		if (task.isFinished())
+			ans += task.wrongAnswers();
+	}
+	return ans;
 }
 
 int Model::totalGaps() const
@@ -376,10 +404,6 @@ int Model::insert(Phrase phrase, Gap gap)
 	int choiceIndex = td.choiceBox.indexOf(phrase.index_);
 	td.choiceBox.removeAt(choiceIndex);
 
-	if (gap.isCorrect()) {
-		td.correctAnswers += 1;
-	}
-
 	return choiceIndex;
 }
 
@@ -395,10 +419,6 @@ void Model::remove(Gap gap, uint insertBefore)
 	PhraseData& pd = phrases_[phrase.index_];
 	GapData& gd = gaps_[gap.index_];
 
-	if (gap.isCorrect()) {
-		td.correctAnswers -= 1;
-	}
-
 	td.choiceBox.insert(insertBefore, phrase.index_);
 
 	pd.gapIndex = -1;
@@ -407,18 +427,32 @@ void Model::remove(Gap gap, uint insertBefore)
 
 void Model::finish()
 {
-	TaskData& td = tasks_[currentTask_];
-	td.isFinished = true;
-	correctAnswers_ += td.correctAnswers;
-	totalAnswers_ += td.gapIndices.size();
+	tasks_[currentTask_].isFinished = true;
+}
+
+void Model::swap(Gap a, Gap b)
+{
+	Q_ASSERT(a.model() == this);
+	Q_ASSERT(b.model() == this);
+	Q_ASSERT(a.task() == b.task());
+	Q_ASSERT(!a.task().isFinished());
+
+	int phraseA = gaps_[a.index_].phrase;
+	int phraseB = gaps_[b.index_].phrase;
+
+	if (phraseA != -1) {
+		phrases_[phraseA].gapIndex = b.index_;
+	}
+	if (phraseB != -1) {
+		phrases_[phraseB].gapIndex = a.index_;
+	}
+
+	std::swap(gaps_[a.index_].phrase, gaps_[b.index_].phrase);
 }
 
 void Model::reset()
 {
-	TaskData& td = tasks_[currentTask_];
-	td.isFinished = false;
-	correctAnswers_ -= td.correctAnswers;
-	totalAnswers_ -= td.gapIndices.size();
+	tasks_[currentTask_].isFinished = false;
 
 	// move phrases out of gaps
 	for (Gap gap : currentTask().gaps()) {
@@ -426,6 +460,9 @@ void Model::reset()
 			remove(gap);
 		}
 	}
+
+	// sort the choices
+	sortChoices(currentTask_);
 }
 
 QStringList Model::toWords(const QString& str) const

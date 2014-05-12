@@ -16,7 +16,7 @@ Gap::Gap(Model::Gap modelGap) :
 	if (modelGap.hasImage()) {
 		pixmap = QPixmap::fromImage(modelGap.image()).scaled(200, 100, Qt::KeepAspectRatio);
 	}
-	refresh();
+	refresh(false);
 }
 
 Model::Gap Gap::modelGap() const
