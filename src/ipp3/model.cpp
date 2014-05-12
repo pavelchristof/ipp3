@@ -299,8 +299,9 @@ void Model::pushGap(int taskIndex, const ltf::Gap& gap, const QDir& imageDir)
 	if (!gap.img.isEmpty()) {
 		QFileInfo pathInfo(imageDir, gap.img);
 		if (!gd.image.load(pathInfo.absoluteFilePath())) {
-			// TODO: notify the user?
-			qDebug("Cannot load image \"%s\".", qPrintable(pathInfo.absoluteFilePath()));
+			// TODO: showing a message box here isn't pretty
+			QMessageBox::warning(nullptr, tr("Warning"),
+				tr("Cannot load image \"%1\".").arg(pathInfo.absoluteFilePath()));
 		}
 	}
 
