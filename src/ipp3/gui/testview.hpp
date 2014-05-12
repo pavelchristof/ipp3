@@ -51,7 +51,9 @@ private:
 	Model* model_;
 	Ui::TestView* ui;
 
-	Choice* chosen;
+	Gap* chosenGap;
+	Choice* chosenChoice;
+
 	FlowLayout* textLayout;
 	FlowLayout* choiceLayout;
 	QSet<QLabel*> words;

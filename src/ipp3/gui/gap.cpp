@@ -24,7 +24,7 @@ Model::Gap Gap::modelGap() const
 	return modelGap_;
 }
 
-void Gap::refresh()
+void Gap::refresh(bool isChosen)
 {
 	QString style = "border-style:%1; border-radius: %2px; border-width: %3px; padding: %4px; ";
 	style = style.arg(Gap::borderStyle).arg(Gap::borderRadius).arg(Gap::borderWidth).arg(Gap::padding);
@@ -40,12 +40,15 @@ void Gap::refresh()
 		label->setText(modelGap().phrase().words().join(' '));
 	}
 
+	// background color
 	if (modelGap().task().isFinished()) {
 		if (modelGap().isCorrect()) {
 			style += "background-color: LightGreen;";
 		} else {
 			style += "background-color: OrangeRed;";
 		}
+	} else if (isChosen) {
+		style += QString("background-color: %1").arg(Gap::chosenBackgroundColor);
 	}
 
 	label->setStyleSheet(style);

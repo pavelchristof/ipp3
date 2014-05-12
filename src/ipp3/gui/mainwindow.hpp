@@ -20,6 +20,7 @@ public:
 
 private:
 	void testFileChosen(const QString& fileName);
+	void clearContent();
 
 	StartScreen* startScreen;
 	TestView* testView;

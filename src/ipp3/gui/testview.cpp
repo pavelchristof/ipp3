@@ -21,7 +21,7 @@ TestView::TestView(Model* model) :
 	textLayout = new FlowLayout(ui->text);
 	choiceLayout = new FlowLayout(ui->choices);
 	setupButtonsGrid();
-	switchTask(model->currentTask());
+	rebuild();
 
 	// buttons
 	connect(ui->finishButton, &QPushButton::clicked, [=] () { 
@@ -66,7 +66,8 @@ void TestView::rebuild()
 {
 	buildText();
 	buildChoices();
-	chosen = nullptr;
+	chosenGap = nullptr;
+	chosenChoice = nullptr;
 	refresh();
 }
 
@@ -126,10 +127,10 @@ void TestView::refresh()
 
 	// refresh gaps and choices
 	for (Gap* gap : gaps) {
-		gap->refresh();
+		gap->refresh(chosenGap == gap);
 	}
 	for (Choice* choice : choices) {
-		choice->refresh(choice == chosen);
+		choice->refresh(chosenChoice == choice);
 	}
 
 	update();
@@ -223,27 +224,31 @@ void TestView::gapClicked(Gap* gap)
 	if (model()->currentTask().isFinished())
 		return;
 
-	// Remove a phrase from the gap.
-	if (!gap->modelGap().isEmpty()) {
-		Model::Phrase phrase = gap->modelGap().phrase();
-		model()->remove(gap->modelGap(), gap->modelGap().task().choicesCount());
-		Choice* choice = addChoice(phrase);
-
-		// Special case - if no word is chosen we choose the phrase that just 
-		// got added to the choices box.
-		if (!chosen) {
-			chosen = choice;
-			refresh();
-			return;
+	if (chosenChoice) {
+		// Insert a phrase to the gap.
+		if (gap->modelGap->isEmpty()) {
+			model()->insert(chosenChoice->modelPhrase(), gap->modelGap());
+			choiceLayout->removeWidget(chosenChoice);
+			choices.remove(chosenChoice);
+			delete chosenChoice;
+			chosenChoice = nullptr;
 		}
-	}
+	} else if (chosenGap) {
+		if (chosenGap == gap) {
+			// Deselect.
+			chosenGap = nullptr;
+		} else {
+			// Move a phrase between gaps.
+			Model::Gap oldGap = chosenGap->modelGap();
+			Model::Gap newGap = gap->modelGap();
+			Model::Phrase phrase = oldGap->phrase();
 
-	// Insert a phrase to the gap.
-	if (chosen) {
-		model()->insert(chosen->modelPhrase(), gap->modelGap());
-		choiceLayout->removeWidget(chosen);
-		choices.remove(chosen);
-		delete chosen;
+			model().remove(oldGap);
+			model().insert(phrase, newGap);
+		}
+	} else {
+		// Select the gap.
+		chosenGap = gap;
 	}
 
 	chosen = nullptr;

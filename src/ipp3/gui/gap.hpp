@@ -15,6 +15,7 @@ class Gap : public QAbstractButton
 	Q_OBJECT
 public:
 	static constexpr const char* borderStyle = "solid";
+	static constexpr const char* chosenBackgroundColor = "LightSkyBlue";
 	static const int borderRadius = 5;
 	static const int borderWidth = 2;
 	static const int padding = 2;
@@ -22,7 +23,7 @@ public:
 	Gap(Model::Gap modelGap);
 	Model::Gap modelGap() const;
 
-	void refresh();
+	void refresh(bool isChosen);
 
 private:
 	virtual void paintEvent(QPaintEvent* e);

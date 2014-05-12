@@ -26,7 +26,7 @@ void Choice::refresh(bool isChosen)
 	QString style = "border-style:%1; border-radius: %2px; border-width: %3px; padding: %4px; ";
 	style = style.arg(Gap::borderStyle).arg(Gap::borderRadius).arg(Gap::borderWidth).arg(Gap::padding);
 	if (isChosen) {
-		style += "background-color: LightSkyBlue";
+		style += QString("background-color: %1").arg(Gap::chosenBackgroundColor);
 	}
 	label->setStyleSheet(style);
 }

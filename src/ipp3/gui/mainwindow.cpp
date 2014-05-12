@@ -9,9 +9,10 @@
 namespace ipp3 {
 namespace gui {
 
-MainWindow::MainWindow()
+MainWindow::MainWindow() :
+	startScreen(new StartScreen()),
+	testView(nullptr)
 {
-	startScreen = new StartScreen();
 	setCentralWidget(startScreen);
 	connect(startScreen, &StartScreen::testFileChosen,
 			this, &MainWindow::testFileChosen);
@@ -38,13 +39,29 @@ void MainWindow::testFileChosen(const QString& fileName)
 	QFileInfo fileInfo(file);
 	Model* model = new Model(doc, fileInfo.dir());
 
+	clearContent();
 	testView = new TestView(model);
-	testView->show();
+
 	setCentralWidget(testView);
-	delete startScreen;
+	testView->show();
 
 	setWindowTitle(windowTitle() + " - " + fileInfo.absoluteFilePath());
 	showMaximized();
+}
+
+void MainWindow::clearContent() 
+{
+	setCentralWidget(nullptr);
+
+	if (startScreen) {
+		delete startScreen;
+		startScreen = nullptr;
+	}
+
+	if (testView) {
+		delete testView;
+		testView = nullptr;
+	}
 }
 
 }
