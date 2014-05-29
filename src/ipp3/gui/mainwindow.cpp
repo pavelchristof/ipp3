@@ -29,6 +29,7 @@ void MainWindow::testFileChosen(const QString& fileName)
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly)) {
 		QMessageBox::critical(this, tr("Error"), tr("Cannot open the file %1.").arg(fileName));
+		return;
 	}
 
 	QTextStream stream(&file);
@@ -39,6 +40,7 @@ void MainWindow::testFileChosen(const QString& fileName)
 	} catch (const ltf::ParserError& error) {
 		QMessageBox::critical(this, tr("Error"), 
 			tr("An error was encountered when reading the test file:\n%1").arg(error.message()));
+		return;
 	}
 
 	QFileInfo fileInfo(file);
